@@ -72,12 +72,6 @@ class App extends React.Component {
             else{
                 this.setState({ activePos: this.state.activePos+1 });
             }
-            // if(this.lis.length !== this.state.activePos+1){
-            //     this.setState({ activePos: this.state.activePos+1 });
-            // }
-            // else{
-            //     this.setState({ activePos: 0 });
-            // }
         }
 
         // Decreases the active postion value in state which rerenders the list 
@@ -91,12 +85,6 @@ class App extends React.Component {
             else{
                 this.setState({ activePos: this.state.activePos-1 });
             }
-            // if(0 !== this.state.activePos){
-            //     this.setState({ activePos: this.state.activePos-1 });
-            // }
-            // else{
-            //     this.setState({ activePos: this.lis.length-1 });
-            // }
         }
 
     }
@@ -104,7 +92,7 @@ class App extends React.Component {
     // Opens the selected page (by changing the state for rerendering the screen component)
     changeListToNext = () => {
         var listAvailable = true;
-        var list = [];
+        var list;
         let selectedItem = this.state.currentList[this.state.activePos];
         if (selectedItem === 'Video'){
             if (this.aud)
@@ -127,7 +115,7 @@ class App extends React.Component {
                 currentList: list,
                 activePos: 0
             });
-            this.route += selectedItem + '/';
+            this.route = this.route + selectedItem + '/';
         }
         console.log('route : ', this.route);
     }
@@ -135,7 +123,7 @@ class App extends React.Component {
     // Opens the previous page (by changing the state for rerendering the screen component)
     changeListToBack = () => {
         var route = this.route;
-        var pos = route.indexOf(this.state.currentPage);
+        var pos = route.indexOf(this.state.currentPage); //home/
         // Finds the new route and new(previous) page by removing the current page name from the route
         route = route.slice(0, pos-1);
         var prev = route.slice(route.lastIndexOf('/')+1);
@@ -174,8 +162,8 @@ class App extends React.Component {
             // play: true,
             play: false
         }, () => {
-            // this.aud = document.querySelector('audio');
             this.TogglePlayPauseMusic();
+            // this.aud = document.querySelector('audio');
             // this.aud.play();
         })
     }
@@ -192,8 +180,8 @@ class App extends React.Component {
             play: false
         }, () => {
             console.log('Hey I am here! on playNext');
-            // this.aud = document.querySelector('audio');
             this.TogglePlayPauseMusic();
+            // this.aud = document.querySelector('audio');
             // this.aud.play();
         })
     }
@@ -206,11 +194,13 @@ class App extends React.Component {
         }
         this.setState({
             song: Songs[prevIndex],
+            // play:true,
             play: false
         }, () => {
             console.log('Hey I am here! on playPrevious');
-            // this.aud = document.querySelector('audio');
             this.TogglePlayPauseMusic();
+            // this.aud = document.querySelector('audio');
+            // this.aud.play();
         })
     }
 
@@ -258,6 +248,7 @@ class App extends React.Component {
                     <div 
                         className="play" 
                         onClick={
+                            // this.changeListToNext
                             // Calls the SelectMusic function only if the current page is Songs
                             this.state.currentPage === 'Songs' || this.state.currentPage === 'Artists'
                             ? this.SelectMusic

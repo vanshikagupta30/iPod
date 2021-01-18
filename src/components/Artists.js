@@ -15,8 +15,6 @@ class Artists extends React.Component {
               var artistName = item.slice(0,item.indexOf('-'));
               if (state.activePos === index ) 
                 return <li className='active' key={index}> {artistName} </li>
-              // else if (state.song === item )
-              //   return <li className='playing ' key={index}> {artistName} </li>
               else
                 return <li key={index} > {artistName} </li>
             })}  
